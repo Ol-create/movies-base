@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import { ReactDOM } from 'react-dom/client';
 
 import Likes from './common/Likes';
 import Pagenation from './common/Pagenation';
@@ -11,12 +10,12 @@ export default class Movies extends Component {
     super(props);
     this.state ={
       movies: getMovies(),
-      pageSize: 4,
+      pageSize: 10,
     }
   }
 
   handlePageChange = page => {
-
+      console.log("page change");
   }
 
  handleLike = (movie) => {
@@ -37,6 +36,7 @@ export default class Movies extends Component {
      const { movies } = this.state;
     const renderMovie = movies.map((movie) => {
       return (
+
         <tr key={movie._id}>
         <td>{movie.title}</td>
         <td>{movie.genre.name}</td>
@@ -60,7 +60,7 @@ export default class Movies extends Component {
     if (movies.length === 0 ) return <h4 className='m-3'>There is no movie in the database</h4>;
 
     return (
-      <>
+      <React.Fragment>
       <h2 className='m-3'>{movies.length > 0 && `Showing ${movies.length} in the database.`} </h2>
         <table className="table">
   <thead>
@@ -81,7 +81,7 @@ export default class Movies extends Component {
   <Pagenation itemCount={ this.state.movies.length }
   pageSize={ this.state.pageSize }
   onPageChange={this.handlePageChange}/>
-      </>
+      </React.Fragment>
     )
   }
 }

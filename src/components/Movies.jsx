@@ -10,12 +10,13 @@ export default class Movies extends Component {
     super(props);
     this.state ={
       movies: getMovies(),
-      pageSize: 10,
+      pageSize: 4,
+      currentPage: 1,
     }
   }
 
   handlePageChange = page => {
-      console.log("page change");
+      this.setState({ currentPage: page});
   }
 
  handleLike = (movie) => {
@@ -33,8 +34,9 @@ export default class Movies extends Component {
   
   
   render() {
-     const { movies } = this.state;
-    const renderMovie = movies.map((movie) => {
+     const { length: count } = this.state.movies;
+     const { pageSize, currentPage } = this.state
+    const renderMovie = this.state.movies.map((movie) => {
       return (
 
         <tr key={movie._id}>
@@ -57,11 +59,11 @@ export default class Movies extends Component {
       );
     })
    
-    if (movies.length === 0 ) return <h4 className='m-3'>There is no movie in the database</h4>;
+    if ( count === 0 ) return <h4 className='m-3'>There is no movie in the database</h4>;
 
     return (
       <React.Fragment>
-      <h2 className='m-3'>{movies.length > 0 && `Showing ${movies.length} in the database.`} </h2>
+      <h2 className='m-3'>{ count > 0 && `Showing ${count} in the database.`} </h2>
         <table className="table">
   <thead>
     <tr >
@@ -78,8 +80,9 @@ export default class Movies extends Component {
 }
   </tbody>
 </table>
-  <Pagenation itemCount={ this.state.movies.length }
-  pageSize={ this.state.pageSize }
+  <Pagenation itemCount={ count }
+  pageSize={pageSize }
+  currentPage={currentPage}
   onPageChange={this.handlePageChange}/>
       </React.Fragment>
     )

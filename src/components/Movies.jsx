@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 import Likes from './common/Likes';
 import Pagenation from './common/Pagenation';
+import { Paginate } from '../utils/Paginate';
 import { getMovies } from '../Services/services/fakeMovieService'
 
 export default class Movies extends Component {
@@ -35,8 +36,12 @@ export default class Movies extends Component {
   
   render() {
      const { length: count } = this.state.movies;
-     const { pageSize, currentPage } = this.state
-    const renderMovie = this.state.movies.map((movie) => {
+     const { pageSize, currentPage, movies: allMovies } = this.state
+
+     if ( count === 0 ) return <h4 className='m-3'>There is no movie in the database</h4>;
+      const movies = Paginate(allMovies, currentPage, pageSize);
+      
+    const renderMovie = movies.map((movie) => {
       return (
 
         <tr key={movie._id}>
@@ -59,7 +64,6 @@ export default class Movies extends Component {
       );
     })
    
-    if ( count === 0 ) return <h4 className='m-3'>There is no movie in the database</h4>;
 
     return (
       <React.Fragment>

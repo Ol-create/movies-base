@@ -40,7 +40,6 @@ export default class Movies extends Component {
 
      if ( count === 0 ) return <h4 className='m-3'>There is no movie in the database</h4>;
       const movies = Paginate(allMovies, currentPage, pageSize);
-      
     const renderMovie = movies.map((movie) => {
       return (
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import _ from 'lodash';
+import PropTypes from 'prop-types';
 
 const Pagenation = ({ itemCount, pageSize, onPageChange, currentPage }) => {
     console.log(currentPage)
@@ -18,4 +19,11 @@ const Pagenation = ({ itemCount, pageSize, onPageChange, currentPage }) => {
 );
 }
  
+Pagenation.propTypes = {
+    itemCount: PropTypes.number.isRequired, 
+    pageSize: PropTypes.number.isRequired,
+    onPageChange: PropTypes.func.isRequired,
+    currentPage: PropTypes.number.isRequired,
+}
+
 export default Pagenation;
